@@ -3,14 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title>ミャクミャク福笑い</title>
-    <!-- head内に以下を追加 -->
-     <!-- head に追加 -->
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
-
 
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.2/lib/p5.min.js"></script>
     <script src="sketch.js"></script>
@@ -26,7 +24,7 @@
 
       .menu-back-transparent {
         width: 100%;
-        padding: 10px 20px;
+        padding: 10px 0px;
         background-color: rgba(255, 255, 255, 0.6);
         backdrop-filter: blur(6px);
         display: flex;
@@ -327,12 +325,11 @@
         <div class=rule-box>
           <ul data-key="rule"></ul>
         </div>
-        <button onclick="document.getElementById('overlay-help').style.display='none'">閉じる</button>
+        <button onclick="document.getElementById('overlay-help').style.display='none'"　 data-key="close"></button>
       </div>
     </div>
     <div id="canvas-container">
       <!-- canvas は p5.js であとから追加 -->
-      <img src="assets/mybase.png" class="overlay-img" />
     </div>
 
       <!-- <div id="canvas-container"></div> -->
@@ -352,7 +349,7 @@
       let eyeStopCount = 0
       let state = 0;
       let canvas;
-      let bodypng;
+      //let bodypng;
 
       function preload() {
         //bodypng = loadImage("assets/mybase.png");
@@ -364,7 +361,6 @@
         canvas.parent('canvas-container');
         background(200, 220, 255);
         generateShapes();
-
 
         // ページが読み込まれたら翻訳適用
         document.addEventListener("DOMContentLoaded", () => {
