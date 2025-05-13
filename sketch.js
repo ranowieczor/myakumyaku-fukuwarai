@@ -28,6 +28,7 @@ const translations = {
     createPrompt: "キャンバスをタッチしてミャクミャクをつくってみよう！",
     what: "「ミャクミャク」は公益社団法人2025年日本国際博覧会協会のキャラクターです。\nミャクミャクの著作権などの権利はすべて権利者に帰属します。",
     rule: "【ルール】\n・色や形はランダムで表示されます。\n・個人利用の範囲でお楽しみください。",
+    close: "閉じる",
     language: "言語"
   },
   en: {
@@ -43,8 +44,9 @@ const translations = {
     cell: "Cells",
     eye: "Eyes",    
     createPrompt: "Touch the canvas and try making your own MYAKU-MYAKU!",
-    what: " “Myakumyaku” is a registered character of the Japan Association for the 2025 World Exposition.\nAll rights, including copyright, of MYAKU-MYAKU belong to the respective rights holder.",
+    what: " “MYAKU-MYAKU” is a registered character of the Japan Association for the 2025 World Exposition.\nAll rights, including copyright, of MYAKU-MYAKU belong to the respective rights holder.",
     rule: "【Rules】\n・Colors and shapes appear randomly.\n・Please enjoy within the scope of personal use.",
+    close: "Close",
     language: "Language"
   },
   zh: {
@@ -62,6 +64,7 @@ const translations = {
     createPrompt: "点击画布，试着创造一个属于你的MYAKU-MYAKU吧！",
     what: "MYAKU-MYAKU”是2025年日本国际博览会协会的注册角色。\nMYAKU-MYAKU的著作权等所有权利归原权利人所有。",
     rule: "【规则】\n・颜色和形状会随机出现。\n・请仅限于个人使用范围内使用和享受。",
+    close: "关闭",
     language: "语言"
   },
   ko: {
@@ -79,6 +82,7 @@ const translations = {
     createPrompt: "캔버스를 터치해서 나만의 MYAKU-MYAKU를 만들어보세요!",
     what: " “MYAKU-MYAKU”는 2025 일본국제박람회협회의 등록 캐릭터입니다.\nMYAKU-MYAKU의 저작권 등 모든 권리는 원 저작권자에게 있습니다.",
     rule: "【규칙】\n・색상과 모양은 무작위로 나타납니다.\n・개인적인 이용 범위 내에서 즐겨주세요.",
+    close: "닫기",
     language: "언어"
   }
 };
@@ -103,11 +107,11 @@ class FacePart {
   constructor(i, faceColor) {
 
     // 楕円かどうかを確率で決定 
-    let isEllipse = random() <  0.3 //(2 / CIRCLE_COUNT);
+    let isEllipse = random() <  0.2 //(2 / CIRCLE_COUNT);
 
     // シェイプのサイズ設定
 
-    let w = random(95, 100);
+    let w = random(90, 100);
     if (random() < 0.5) {
       w = random(60, 70);
     }
