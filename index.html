@@ -218,7 +218,40 @@
         border-bottom: 3px solid #0068B6;
         box-shadow: 0 2px 5px rgba(0, 104, 182, 0.2);
       }
+      .rule-box {
+        background-color: #f9f9f9;  /* やわらかい背景 */
+        border: 1px solid #ccc;     /* 薄いグレーの枠線 */
+        border-radius: 8px;         /* 少し丸み */
+        padding: 16px;
+        max-width: 400px;
+        font-family: 'Arial', 'Helvetica', sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #333;                /* 読みやすい濃いめのグレー */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* うっすら影 */
+        text-align: left; 
+      }
 
+      .rule-box h2 {
+        font-size: 18px;
+        margin-top: 0;
+        color: #555;
+      }
+
+      .rule-box ul {
+        padding-left: 20px;
+        margin-top: 8px;
+      }
+
+      .rule-box li {
+        margin-bottom: 4px;
+      }
+
+      .rule-box small {
+        color: #777;
+        display: block;
+        margin-top: 12px;
+      }
       .footer {
         font-size: 0.85em;   /* 少し小さめ */
         color: #333;         /* 明るめのグレー */
@@ -272,6 +305,8 @@
     </div>
 
     <div id="bottom-menu">
+      <div id="output"></div>
+
       <!-- <button class="horizontal-button" id="btnStart">
         <span class="button-text" data-key="back"></span>
       </button>
@@ -293,8 +328,11 @@
 
     <div id="overlay-help" class="overlay">
       <div class="modal">
-        <h2>What?</h2>
+        <h2>？</h2>
         <p data-key="what"></p>
+        <div class=rule-box>
+          <ul data-key="rule"></ul>
+        </div>
         <button onclick="document.getElementById('overlay-help').style.display='none'">閉じる</button>
       </div>
     </div>
@@ -314,57 +352,14 @@
     <script>
       let tempCells = [];
       let tempEyes = [];
-
+      let sampleCell
+      let sampleEye
       let stopCount = 0
       let eyeStopCount = 0
       let state = 0;
       let canvas;
       let bodypng;
-      function preload() {
-        bodypng = loadImage("assets/mybase.png");
-      }
 
-      function openPopup() {
-        // const popupWidth = 400;
-        // const popupHeight = 400;
-        // const left = (window.screen.width - popupWidth) / 2;
-        // const top = (window.screen.height - popupHeight) / 2;
-
-        // // window.open(
-        // //   'popup.html',
-        // //   'popupCanvas',
-        // //   `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`
-        // // );
-
-        // //const popup = window.open('popup.html', 'popup', 'width=400,height=400');
-        // const popup = window.open(
-        //   'popup.html',
-        //   'popupCanvas',
-        //   `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`
-        // );
-
-        // console.info("1")
-        // const partsList = [
-        //   { type: 'face', image: cells, x: 0, y: 0 },
-        //   { type: 'eye', image: eyes, x: 80, y: 100 },
-        // ];
-
-        // popup.onload = () => {
-        //   console.info("2")
-        //   popup.postMessage(
-        //     { type: 'PARTS_LIST', data: cells },
-        //     location.origin
-        //   );
-        // };
-
-        document.getElementById('overlay').style.display='flex';
-      }
-      function setup() {
-        // 初期化
-        canvas = createCanvas(400, 400);
-        canvas.parent('canvas-container');
-        background(200, 220, 255);
-        generateShapes();
 
         // ページが読み込まれたら翻訳適用
         document.addEventListener("DOMContentLoaded", () => {
@@ -379,6 +374,17 @@
           langSelect.selectedIndex = 0;
         });
 
+      function preload() {
+        //bodypng = loadImage("assets/mybase.png");
+      }
+
+      function setup() {
+        // 初期化
+        canvas = createCanvas(400, 400);
+        canvas.parent('canvas-container');
+        background(200, 220, 255);
+        generateShapes();
+
         // DOMイベントで canvas にクリックイベントをつける
         canvas.elt.addEventListener('click', (event) => {
           if (event.target.tagName === "CANVAS") {
@@ -387,16 +393,10 @@
         });
       }
 
-      function openTweet() {
-        let text = encodeURIComponent("わたしのMYAKU-MYAKU福笑いをつくったよ！ #ミャクミャク福笑い");
-        let url = "https://twitter.com/intent/tweet?text=" + text;
-        window.open(url, '_blank');
-      }
       function draw() {
 
         if (currentScene!=Scene.COMP) {
           background(240);
-          //image(bodypng, 10, 50, 380, 400);
         }
         else {
           background(255);
@@ -421,6 +421,24 @@
           temp.update();
           temp.draw();
         }
+
+        noStroke();
+        fill(faceColor);
+        stroke(50)
+        strokeWeight(1)
+        ellipse(12, 12, 12, 12);
+        fill(255);
+        ellipse(12, 26,  12, 12);
+        noStroke();
+        fill(eyeColor);
+        ellipse(14, 26, 5, 5);
+
+        fill(0);
+        textSize(12);
+        text(cells.length, 24, 17);
+        textSize(12);
+        text(eyes.length, 24,31);
+
       }
 
       function StopShape() {
@@ -515,11 +533,47 @@
           let shape = new FacePart(i, faceColor)
           tempCells.push(shape);
         }
-
         for (let i = 0; i < EYE_COUNT; i++) {
           let eye = new EyePart(i, eyeColor)
           tempEyes.push(eye);
         }
+      }
+
+
+      function openPopup() {
+        // const popupWidth = 400;
+        // const popupHeight = 400;
+        // const left = (window.screen.width - popupWidth) / 2;
+        // const top = (window.screen.height - popupHeight) / 2;
+
+        // // window.open(
+        // //   'popup.html',
+        // //   'popupCanvas',
+        // //   `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`
+        // // );
+
+        // //const popup = window.open('popup.html', 'popup', 'width=400,height=400');
+        // const popup = window.open(
+        //   'popup.html',
+        //   'popupCanvas',
+        //   `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`
+        // );
+
+        // console.info("1")
+        // const partsList = [
+        //   { type: 'face', image: cells, x: 0, y: 0 },
+        //   { type: 'eye', image: eyes, x: 80, y: 100 },
+        // ];
+
+        // popup.onload = () => {
+        //   console.info("2")
+        //   popup.postMessage(
+        //     { type: 'PARTS_LIST', data: cells },
+        //     location.origin
+        //   );
+        // };
+
+        document.getElementById('overlay').style.display='flex';
       }
 
       function applyTranslations(lang) {
