@@ -354,6 +354,17 @@
       let canvas;
       let bodypng;
 
+      function preload() {
+        //bodypng = loadImage("assets/mybase.png");
+      }
+
+      function setup() {
+        // 初期化
+        canvas = createCanvas(400, 400);
+        canvas.parent('canvas-container');
+        background(200, 220, 255);
+        generateShapes();
+
 
         // ページが読み込まれたら翻訳適用
         document.addEventListener("DOMContentLoaded", () => {
@@ -367,17 +378,6 @@
           applyTranslations(newLang);
           langSelect.selectedIndex = 0;
         });
-
-      function preload() {
-        //bodypng = loadImage("assets/mybase.png");
-      }
-
-      function setup() {
-        // 初期化
-        canvas = createCanvas(400, 400);
-        canvas.parent('canvas-container');
-        background(200, 220, 255);
-        generateShapes();
 
         // DOMイベントで canvas にクリックイベントをつける
         canvas.elt.addEventListener('click', (event) => {
