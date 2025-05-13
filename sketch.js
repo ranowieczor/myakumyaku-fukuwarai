@@ -83,13 +83,6 @@ const translations = {
   }
 };
 
-
-// ※このゲームは非公式のファン作品です。公益社団法人2025年日本国際博覧会協会とは一切関係ありません。<br>
-// ミャクミャクおよびその関連デザインの権利はすべて各権利者に帰属します。個人利用の範囲でお楽しみください。
-// <br><br>
-// ※This is an unofficial fan-made game. It is not affiliated with the Japan Association for the 2025 World Exposition.<br>
-// All rights to the Myakumyaku character and related designs belong to their respective rights holders. Please use for personal, non-commercial purposes only.
-
 document.addEventListener("DOMContentLoaded", () => {
   applyTranslations(currentLang);  // ページが読み込まれたら翻訳を適用
 });
